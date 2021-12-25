@@ -3,6 +3,7 @@ import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import MarvelService from '../../services/MarvelService';
 import './charList.scss';
+import PropTypes from 'prop-types';
 
 class CharList extends Component {
 
@@ -56,7 +57,7 @@ class CharList extends Component {
         })
     }
 
-    // Этот метод создан для оптимизации, 
+    // метод создан для оптимизации, 
     // чтобы не помещать такую конструкцию в метод render
     renderItems(arr) {
         const items =  arr.map((item) => {
@@ -75,7 +76,7 @@ class CharList extends Component {
                 </li>
             )
         });
-        // А эта конструкция вынесена для центровки спиннера/ошибки
+        //  конструкция вынесена для центровки спиннера/ошибки
         return (
             <ul className="char__grid">
                 {items}
@@ -109,5 +110,9 @@ class CharList extends Component {
         )
     }
 }
+
+CharList.defaultProps = {
+    onCharSelected: PropTypes.func.isRequired
+  };
 
 export default CharList;
