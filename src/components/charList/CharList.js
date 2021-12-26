@@ -13,7 +13,7 @@ class CharList extends Component {
         error: false,
         newItemLoading: false,
         offset: 210,
-        charEnded: false
+        charEnded: false,
     }
     
     marvelService = new MarvelService();
@@ -57,21 +57,28 @@ class CharList extends Component {
         })
     }
 
+
     // метод создан для оптимизации, 
     // чтобы не помещать такую конструкцию в метод render
     renderItems(arr) {
         const items =  arr.map((item) => {
             let imgStyle = {'objectFit' : 'cover'};
+            let active = this.props.selectedChar === item.id
+
+
+            let clazz = active ? 'char__item char__item_selected' : 'char__item'
+            
+
             if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
                 imgStyle = {'objectFit' : 'unset'};
             }
             
             return (
                 <li 
-                    className="char__item"
+                    tabIndex={0}
                     key={item.id}
                     onClick={() => this.props.onCharSelected(item.id)}>
-                        <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
+                        <img src={item.thumbnail} alt={item.name} style={imgStyle} className={clazz}/>
                         <div className="char__name">{item.name}</div>
                 </li>
             )
@@ -90,6 +97,7 @@ class CharList extends Component {
         
         const items = this.renderItems(charList);
 
+       
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
         const content = !(loading || error) ? items : null;

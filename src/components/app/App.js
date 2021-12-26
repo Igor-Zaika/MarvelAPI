@@ -4,7 +4,6 @@ import RandomChar from "../randomChar/RandomChar";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
-import PropTypes from 'prop-types';
 
 import decoration from '../../resources/img/vision.png';
 
@@ -14,6 +13,7 @@ class App extends Component {
         selectedChar: null
     }
 
+    
     onCharSelected = (id) => {
         this.setState({
             selectedChar: id
@@ -30,7 +30,7 @@ class App extends Component {
                     </ErrorBoundary>
                     <div className="char__content">
                         <ErrorBoundary>
-                            <CharList onCharSelected={this.onCharSelected}/>
+                            <CharList onCharSelected={this.onCharSelected} selectedChar={this.state.selectedChar}/>
                         </ErrorBoundary>
                         <ErrorBoundary>
                             <CharInfo charId={this.state.selectedChar}/>
@@ -42,9 +42,5 @@ class App extends Component {
         )
     }
 }
-
-CharList.defaultProps = {
-    onCharSelected: PropTypes.func
-  };
 
 export default App;
