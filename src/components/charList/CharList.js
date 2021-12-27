@@ -65,25 +65,31 @@ class CharList extends Component {
             let imgStyle = {'objectFit' : 'cover'};
             let active = this.props.selectedChar === item.id
 
-
             let clazz = active ? 'char__item char__item_selected' : 'char__item'
             
-
             if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
                 imgStyle = {'objectFit' : 'unset'};
             }
             
             return (
                 <li 
+                    className={clazz}
                     tabIndex={0}
                     key={item.id}
-                    onClick={() => this.props.onCharSelected(item.id)}>
-                        <img src={item.thumbnail} alt={item.name} style={imgStyle} className={clazz}/>
+                    onClick={() => {
+                        this.props.onCharSelected(item.id);
+                    }}
+                    onKeyPress={(e) => {
+                        if (e.key === ' ' || e.key === "Enter") {
+                            this.props.onCharSelected(item.id);
+                        }
+                    }}>
+                        <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
                         <div className="char__name">{item.name}</div>
                 </li>
             )
         });
-        //  конструкция вынесена для центровки спиннера/ошибки
+        // А эта конструкция вынесена для центровки спиннера/ошибки
         return (
             <ul className="char__grid">
                 {items}
